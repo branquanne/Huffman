@@ -1,6 +1,8 @@
 #include "huffman.h"
 #include <stdio.h>
 
+/* G*/
+
 int main(int argc, char **argv) {
 
   // Validera körningsträngen

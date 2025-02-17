@@ -11,6 +11,8 @@ int main(void)
 	int table[256];
  //testing testing atention please
  //INTE EMINEM
+
+	printf("hej\n");
 	
 
 	return 0;

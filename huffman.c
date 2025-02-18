@@ -5,22 +5,24 @@
 
 int main(int argc, char **argv) {
 
-  // Validera körningsträngen
-  // Hej
-  // What
+  // Validera körningsargument (kan bryta ut till egen funktion)
   char *option = argv[1];
   char *file0 = argv[2];
   char *file1 = argv[3];
   char *file2 = argv[4];
-  int hej = 10;
 
   if (argc != 5) {
     // aa
+
+    printf("Usage: %s <option> <file0> <file1> <file2>\n", argv[0]);
+    exit(1);
+
     // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa
     // huffmantabell -> encode (okomprimerad blir komprimerad)
     //
     // Validera input -> Frekvensanalys (file0) -> skapa huffman trie  ->
     // decode (komprimerad återställs till original)
   }
+
+  return 0;
 }
- 

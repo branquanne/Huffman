@@ -23,3 +23,4 @@ int main(int argc, char **argv) {
     // decode (komprimerad återställs till original)
   }
 }
+ 

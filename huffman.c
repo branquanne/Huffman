@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
   if (argc != 5) {
     // aa
 
-    printf("Usage: %s <option> <file0> <file1> <file2>\n", argv[0]);
+    printf("Usage: %s <option>  <file0> <file1> <file2>\n", argv[0]);
     exit(1);
 
     // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa

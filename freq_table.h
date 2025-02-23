@@ -20,6 +20,18 @@
  * @{
  */
 
+/**
+ * @brief Create a frequency table.
+ * 
+ * This function creates a frequency table from a string of characters.
+ * The frequency table is an array of integers where each index represents
+ * a character and the value at that index represents the frequency of that
+ * character.
+ * 
+ * @param fileContents The string of characters.
+ * 
+ * @return The frequency table.
+ */
 int *checkFrequency(char *fileContents);
 
 #endif /* FREQ_TABLE_H */

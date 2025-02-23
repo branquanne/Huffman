@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void checkNumberOfArguments(int numberOfArguments) {
     if (numberOfArguments != 5) {

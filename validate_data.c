@@ -14,16 +14,20 @@ int main(void) {
 
   char *fileName = "balenPaEkeby_GostaBerlingsSaga_SelmaLagerlof.txt";
   char *fileContent = loadFileCharacters(fileName);
-  printf("%s\n", fileContent);
+  printf("%d\n", fileContent[0]);
+  // printf("%s\n", fileContent);
+
   free(fileContent);
 
   return 0;
 }
 
-int checkInputValidity(int numberOfArguments, char **arguments){
-  if(numberOfArguments != 4){
-    printf("Error: Invalid amount of files");
-  }
+int checkInputValidity(int numberOfArguments, char **arguments) {
+  printf("Usage: %s\n [OPTION] [FILE0] [FILE1] [FILE2]\n", arguments[0]);
+  printf("Options:\n");
+  printf("-encode encodes FILE1 according to frequence analysis done on FILE0. Stores the result in FILE2");
+  printf("-decode decodes FILE1 according to frequence analysis done on FILE0. Stores the result in FILE2");
+  exit(1);
 }
 
 char *loadFileCharacters(char *fileName) {

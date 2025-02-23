@@ -8,3 +8,4 @@
 
 /** kommentar  */
 char *loadFileCharacters(char *fileName);
+int checkInputValidity(int numberOfArguments, char **arguments);

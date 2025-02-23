@@ -1,0 +1,9 @@
+.DS_store
+doc/
+html/
+latex/
+.clang-format
+build/
+.vscode/
+
+*

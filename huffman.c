@@ -1,4 +1,5 @@
 #include "huffman.h"
+#include "validate_data.h"
 #include <stdio.h>
 #include <stdlib.h>
 /* G*/
@@ -11,10 +12,16 @@ int main(int argc, char **argv) {
   char *file1 = argv[3];
   char *file2 = argv[4];
 
+  // loadFileCharacters(file0);
+
   if (argc != 5) {
     // aa
+    //
 
-    printf("Usage: %s <option>  <file0> <file1> <file2>\n", argv[0]);
+    printf("Usage: %s\n [OPTION] [FILE0] [FILE1] [FILE2]\n", argv[0]);
+    printf("Options:\n");
+    printf("-encode encodes FILE1 according to frequence analysis done on FILE0. Stores the result in FILE2");
+    printf("-decode decodes FILE1 according to frequence analysis done on FILE0.Stores the result in FILE2");
     exit(1);
 
     // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa

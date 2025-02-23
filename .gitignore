@@ -14,3 +14,4 @@ build/
 !*.h
 !*.gitignore
 !*.clang-format
+!makefile

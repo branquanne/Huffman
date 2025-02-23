@@ -21,20 +21,12 @@
 
 /*  External functions  */
 
-void checkNumberOfArguments(int numberOfArguments) {
-  if (numberOfArguments != 5) {
-    printf("Usage: %s\n [OPTION] [FILE0] [FILE1] [FILE2]\n", "huffman");
-    printf("Options:\n");
-    printf("-encode encodes FILE1 according to frequence analysis done on FILE0. Stores the result in FILE2\n");
-    printf("-decode decodes FILE1 according to frequence analysis done on FILE0.Stores the result in FILE2\n");
-  }
+bool checkNumberOfArguments(int numberOfArguments) {
+  return numberOfArguments == 5 ? true : false;
 }
 
-void checkOptionValidity(char **arguments) {
-  if (strcmp(arguments[1], "-encode") != 0 && strcmp(arguments[1], "-decode") != 0) {
-    printf("Invalid option: %s\n", arguments[1]);
-    exit(1);
-  }
+bool checkOptionValidity(char **arguments) {
+  return strcmp(arguments[1], "-encode") == 0 || strcmp(arguments[1], "-decode") == 0 ? true : false;
 }
 
 char *loadFileCharacters(char *fileName) {

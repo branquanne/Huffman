@@ -1,4 +1,5 @@
 #include "huffman.h"
+#include "freq_table.h"
 #include "validate_data.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,7 +13,14 @@ int main(int argc, char **argv) {
   char *file1 = argv[3];
   char *file2 = argv[4];
 
-  // loadFileCharacters(file0);
+  // Validate input
+  checkInputValidity(argc, argv);
+
+  // Load file in array byte-wise
+  char *fileContents = loadFileCharacters(file0);
+
+  // freq_tbale
+  int *freq_table = checkFrequency(fileContents);
 
   if (argc != 5) {
     // aa

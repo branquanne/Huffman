@@ -10,24 +10,43 @@
 // o Ta fram algoritm
 // o Identifiera datatyper
 
-void loadFileCharacters(char *fileName) {
-  long fileLength;
-  FILE *inFile = fopen(fileName, "rb"); //! Lägg in error handling sen
+int main(void) {
 
-  if (inFile == NULL) {
-    printf("Error: Could not open file\n");
-    exit(EXIT_FAILURE);
+  char *fileName = "balenPaEkeby_GostaBerlingsSaga_SelmaLagerlof.txt";
+  char *fileContent = loadFileCharacters(fileName);
+  printf("%s\n", fileContent);
+  free(fileContent);
+
+  return 0;
+}
+
+int checkInputValidity(int numberOfArguments, char **arguments){
+  if(numberOfArguments != 4){
+    printf("Error: Invalid amount of files");
+  }
+}
+
+char *loadFileCharacters(char *fileName) {
+
+  FILE *file = fopen(fileName, "rb");
+  if (file == NULL) {
+    printf("Could not open file %s\n", fileName);
+    exit(1);
   }
 
-  fseek(inFile, fileLength, SEEK_END);
-  ftell(inFile);
-  rewind(inFile);
-  char *buffer = (char *)malloc(fileLength * sizeof(char *));
-  fread(buffer, fileLength, 1, inFile);
-  fclose(inFile);
+  fseek(file, 0, SEEK_END);
+  long fileSize = ftell(file);
+  fseek(file, 0, SEEK_SET);
 
-  // Läs in en char i taget
-  //  Lägg in i antingen bitbuffer eller array
-  //  Arrayen ska vara storlek 256 dvs en plats för varje tecken
-  //  Varje plats börjar på 0. Om tex tecken "e" förekommer 19 ggr i texten så är indx 101 ("e i utf-8") värdet 19
+  char *fileContent = malloc(fileSize + 1);
+  if (fileContent == NULL) {
+    printf("Could not allocate memory for file content\n");
+    exit(1);
+  }
+
+  fread(fileContent, 1, fileSize, file);
+  fileContent[fileSize] = '\0';
+  fclose(file);
+
+  return fileContent;
 }

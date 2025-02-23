@@ -7,4 +7,4 @@
 // o Identifiera datatyper
 
 /** kommentar  */
-void loadFileCharacters(char *fileName);
+char *loadFileCharacters(char *fileName);

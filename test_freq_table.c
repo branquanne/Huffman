@@ -48,7 +48,6 @@ int **sortFrequencyTable(int *freq_table) {
   // Sort the frequency table in descending order
   for (int i = 0; i < 256; i++) {
     for (int j = i + 1; j < 256; j++) {
-
       // If the frequency of the character at index i is less than the frequency of the character at index j, swap them
       if (sorted_freq_table[i][1] < sorted_freq_table[j][1]) {
         int *temp = sorted_freq_table[i];

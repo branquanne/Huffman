@@ -5,6 +5,22 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+ * File: validate_data.c
+ *
+ * Description: 
+ *               
+ *              
+ *              
+ *
+ * Author: Henrik Röjvall & Bran Quanne
+ *
+ * Date: 2025-02-23
+ *
+ */
+
+/*  External functions  */
+
 void checkNumberOfArguments(int numberOfArguments) {
     if (numberOfArguments != 5) {
         printf("Usage: %s\n [OPTION] [FILE0] [FILE1] [FILE2]\n", "huffman");

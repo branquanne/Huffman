@@ -11,11 +11,11 @@
 // o Identifiera datatyper
 
 void loadFileCharacters(char *fileName) {
-  long fileLength;
+  long fileLength = 0;
   FILE *inFile = fopen(fileName, "rb"); //! Lägg in error handling sen
 
   if (inFile == NULL) {
-    printf("Error: Could not open file\n");
+    fprintf(stderr, "Could not open file\n");
     exit(EXIT_FAILURE);
   }
 

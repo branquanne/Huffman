@@ -5,8 +5,9 @@
 int main(void)
 {
 	int table[256];
-	// testing testing atention please
-	// INTE EMINEM eller kanye
+
+	
+
 
 	return 0;
 }

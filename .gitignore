@@ -5,6 +5,7 @@ latex/
 .clang-format
 build/
 .vscode/
-.exe
+.*exe
+*.txt
 
 *

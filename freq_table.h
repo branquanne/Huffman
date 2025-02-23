@@ -34,9 +34,22 @@
  */
 int *checkFrequency(char *fileContents);
 
+/**
+ * @brief Sort the frequency table.
+ * 
+ * This function sorts the frequency table in descending order. 
+ * The sorted frequency table is a two-dimensional array where 
+ * the first column represents the character and the second column 
+ * represents the frequency.
+ *  
+ * @param freq_table The frequency table.
+ * 
+ * @return The sorted frequency table.
+ */
+int **sortFrequencyTable(int *freq_table);
+
 #endif /* FREQ_TABLE_H */
 
 /**
  * @}
  */
-int **sortFrequencyTable(int *freq_table);

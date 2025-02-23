@@ -9,3 +9,8 @@ build/
 
 .vscode/
 *
+
+!*.c
+!*.h
+!*.gitignore
+!*.clang-format

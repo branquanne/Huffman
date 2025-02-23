@@ -6,9 +6,7 @@
 int main(void)
 {
 	int table[256];
- //testing testing atention please
- //INTE EMINEM
+ 	
 	
-
 	return 0;
 }

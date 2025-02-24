@@ -22,11 +22,11 @@
 /*  External functions  */
 
 bool checkNumberOfArguments(int numberOfArguments) {
-  return numberOfArguments == 5 ? true : false;
+  return numberOfArguments == 5 ? true : false; // !Gör om till vanlig if
 }
 
 bool checkOptionValidity(char **arguments) {
-  return strcmp(arguments[1], "-encode") == 0 || strcmp(arguments[1], "-decode") == 0 ? true : false;
+  return strcmp(arguments[1], "-encode") == 0 || strcmp(arguments[1], "-decode") == 0 ? true : false; // !Gör om till vanlig if
 }
 
 char *loadFileCharacters(char *fileName) {

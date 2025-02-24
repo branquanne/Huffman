@@ -10,13 +10,13 @@ int main(void) {
   checkNumberOfArguments(4);
 
   if (checkNumberOfArguments(5) == false) {
-    printf("Error: checkNumberOfArguments with 5 arguments failed\n");
+    printf("checkNumberOfArguments with 5 arguments failed\n");
   } else {
     printf("checkNumberOfArguments with 5 arguments passed\n");
   }
 
   if (checkNumberOfArguments(4) == false) {
-    printf("Error: checkNumberOfArguments with 4 arguments failed\n");
+    printf("checkNumberOfArguments with 4 arguments failed\n");
   } else {
     printf("checkNumberOfArguments with 4 arguments passed\n");
   }
@@ -31,7 +31,7 @@ int main(void) {
 
   char *arguments3[] = {"huffman", "-invalid", "file0", "file1", "file2"};
   checkOptionValidity(arguments3);
-  printf("Input: %s %s %s %s %s\nResult:\t%s\n\n", arguments3[0], arguments3[1], arguments3[2], arguments3[3], arguments3[4], checkOptionValidity(arguments3) ? "Passed" : "Failed");
+  printf("Input: %s %s %s %s %s\nResult:\t%s\n\n", arguments3[0], arguments3[1], arguments3[2], arguments3[3], arguments3[4], checkOptionValidity(arguments) ? "Passed" : "Failed");
 
   // Test loadFileCharacters
   char *fileContent = loadFileCharacters("test.txt");

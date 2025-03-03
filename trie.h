@@ -11,6 +11,6 @@ int compareValues(void *val1, void *val2);
 
 TrieNode *createNode(char character, int frequency);
 
-TrieNode *buildHuffmanTrie(char *data, int *frequency, int size);
+TrieNode *buildHuffmanTrie(int *frequencyTable);
 
 void freeTrie(TrieNode *root);

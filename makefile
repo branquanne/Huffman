@@ -9,5 +9,8 @@ test_validate: test_validate_data.c validate_data.c $(TEST_HEADERS)
 test_freq: test_freq_table.c freq_table.c validate_data.c $(TEST_HEADERS)
 	$(CC) $(CFLAGS) -o test_freq test_freq_table.c freq_table.c validate_data.c
 
+test_trie: test_trie.c trie.c freq_table.c validate_data.c $(HEADERS)
+	$(CC) $(CFLAGS) -o test_trie test_trie.c trie.c freq_table.c validate_data.c
+
 huffman: huffman.c freq_table.c validate_data.c $(HEADERS)
 	$(CC) $(CFLAGS) -o huffman huffman.c freq_table.c validate_data.c

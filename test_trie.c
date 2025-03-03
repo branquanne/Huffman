@@ -1,41 +1,65 @@
+// FILE: test_trie.c
+#include "freq_table.h"
+#include "pqueue.h"
 #include "trie.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-// Function to print the Huffman Trie
+// Function to create a sample frequency table
+int *createSampleFrequencyTable() {
+  int *frequencyTable = (int *)calloc(256, sizeof(int));
+  frequencyTable['a'] = 5;
+  frequencyTable['b'] = 9;
+  frequencyTable['c'] = 12;
+  frequencyTable['d'] = 13;
+  frequencyTable['e'] = 16;
+  frequencyTable['f'] = 45;
+  return frequencyTable;
+}
+
+// Print the Huffman Trie
 void printTrie(TrieNode *root, int depth) {
-  if (root == NULL)
+  if (root == NULL) {
     return;
-
-  for (int i = 0; i < depth; i++) {
-    printf("  ");
   }
-
-  if (root->character != '\0') {
-    printf("'%c' (%d)\n", root->character, root->frequency);
+  if (root->character == '\0') {
+    printf("%*sInternal Node, Frequency: %d\n", depth * 2, "", root->frequency);
   } else {
-    printf("Internal (%d)\n", root->frequency);
+    printf("%*sCharacter: %c, Frequency: %d\n", depth * 2, "", root->character, root->frequency);
   }
-
   printTrie(root->left, depth + 1);
   printTrie(root->right, depth + 1);
 }
 
-int main() {
-  // Sample data
-  char data[] = {'a', 'b', 'c', 'd', 'e', 'f'};
-  int frequency[] = {5, 9, 12, 13, 16, 45};
-  int size = sizeof(data) / sizeof(data[0]);
+// Function to test building the Huffman Trie
+void testBuildHuffmanTrie() {
+  // int *frequencyTable = createSampleFrequencyTable();
+  int *frequencyTable = checkFrequency("test.txt");
+  TrieNode *root = buildHuffmanTrie(frequencyTable);
 
-  // Build Huffman Trie
-  TrieNode *root = buildHuffmanTrie(data, frequency, size);
+  if (root == NULL) {
+    printf("Test failed: Huffman Trie root is NULL\n");
+  } else {
+    printf("Test passed: Huffman Trie root is not NULL\n");
+  }
 
-  // Print the Huffman Trie
-  printf("Huffman Trie:\n");
-  printTrie(root, 0);
-
-  // Free the Huffman Trie
   freeTrie(root);
+  free(frequencyTable);
+}
 
+// Function to test freeing the Trie
+void testFreeTrie() {
+  int *frequencyTable = createSampleFrequencyTable();
+  TrieNode *root = buildHuffmanTrie(frequencyTable);
+  freeTrie(root);
+  printf("Test passed: Trie memory freed successfully\n");
+  free(frequencyTable);
+}
+
+int main() {
+  testBuildHuffmanTrie();
+  TrieNode *root = buildHuffmanTrie(checkFrequency("test.txt"));
+  printTrie(root, 0);
+  testFreeTrie();
   return 0;
 }

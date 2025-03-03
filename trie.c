@@ -22,19 +22,27 @@ TrieNode *createNode(char character, int frequency) {
 }
 
 // Build Huffman Trie
-TrieNode *buildHuffmanTrie(char *data, int *frequency, int size) {
+TrieNode *buildHuffmanTrie(int *frequencyTable) {
   pqueue *pq = pqueue_empty(compareValues);
 
   // Create leaf nodes and insert them into the priority queue
-  for (int i = 0; i < size; i++) {
-    TrieNode *node = createNode(data[i], frequency[i]);
-    pqueue_insert(pq, node);
+  for (int i = 0; i < 256; i++) {
+    if (frequencyTable[i] > 0) {
+      TrieNode *node = createNode((unsigned char)i, frequencyTable[i]);
+      pqueue_insert(pq, node);
+    }
   }
 
   // Build the Huffman Trie
-  while (pqueue_size(pq) > 1) {
-    TrieNode *left = (TrieNode *)pqueue_pop(pq);
-    TrieNode *right = (TrieNode *)pqueue_pop(pq);
+  while (pqueue_is_empty(pq) == 0) {
+    TrieNode *left = (TrieNode *)pqueue_inspect_first(pq);
+    pqueue_delete_first(pq);
+    if (pqueue_is_empty(pq)) {
+      pqueue_insert(pq, left);
+      break;
+    }
+    TrieNode *right = (TrieNode *)pqueue_inspect_first(pq);
+    pqueue_delete_first(pq);
 
     TrieNode *internalNode = createNode('\0', left->frequency + right->frequency);
     internalNode->left = left;
@@ -43,8 +51,9 @@ TrieNode *buildHuffmanTrie(char *data, int *frequency, int size) {
     pqueue_insert(pq, internalNode);
   }
 
-  TrieNode *root = (TrieNode *)pqueue_pop(pq);
-  pqueue_free(pq);
+  TrieNode *root = (TrieNode *)pqueue_inspect_first(pq);
+  pqueue_delete_first(pq);
+  pqueue_kill(pq);
   return root;
 }
 

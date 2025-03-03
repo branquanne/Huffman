@@ -9,8 +9,7 @@ int **sortFrequencyTable(int *freq_table);
 int main(void) {
 
   // Load file in array byte-wise, create frequency table and sort it (for testing purposes)
-  char *fileContents = loadFileCharacters("test.txt");
-  int *freq_table = checkFrequency(fileContents);
+  int *freq_table = checkFrequency("test.txt");
   int **sorted_freq_table = sortFrequencyTable(freq_table);
 
   // Print the frequency table
@@ -24,7 +23,6 @@ int main(void) {
   }
   free(sorted_freq_table);
   free(freq_table);
-  free(fileContents);
 
   return 0;
 }

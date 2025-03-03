@@ -34,9 +34,8 @@ int main(void) {
   isOk = checkOptionValidity(arguments3);
   printf("Input: %s %s %s %s %s\nResult:\t%s\n\n", arguments3[0], arguments3[1], arguments3[2], arguments3[3], arguments3[4], isOk ? "Passed" : "Failed");
 
-  // Test loadFileCharacters
-  char *fileContent = loadFileCharacters("test.txt");
-  printf("%s\n", fileContent);
-  free(fileContent);
+  // Test checkInFile
+  checkInFile("test.txt");
+  checkInFile("tom.txt");
   return 0;
 }

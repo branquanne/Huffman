@@ -43,7 +43,7 @@ bool checkNumberOfArguments(int numberOfArguments);
  *
  * @return The string of characters from the file.
  */
-char *loadFileCharacters(char *fileName);
+// char *loadFileCharacters(char *fileName);
 
 /**
  * @brief Check the validity of the options.
@@ -56,6 +56,8 @@ char *loadFileCharacters(char *fileName);
  * @return None.
  */
 bool checkOptionValidity(char **arguments);
+
+bool checkInFile(char *fileName);
 
 #endif /* VALIDATE_DATA_H */
 

@@ -2,6 +2,9 @@
 #include "validate_data.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#define MAX_ASCII_SIZE 256
 
 /*
  * File: freq_table.c
@@ -19,14 +22,20 @@
 
 /*  External functions  */
 
-int *checkFrequency(char *fileContents) {
-  int i = 0;
-  int *freq_table = malloc(256 * sizeof(int));
+int *checkFrequency(char *fileName) {
+  FILE *inFile = fopen(fileName, "rb");
 
-  while (fileContents[i] != '\0') {
-    freq_table[(unsigned char)fileContents[i]]++;
-    i++;
+  int *frequencyTable = malloc(256 * sizeof(int));
+
+  for (int i = 0; i < MAX_ASCII_SIZE; i++) {
+    frequencyTable[i] = 0;
   }
 
-  return freq_table;
+  int ch;
+  while ((ch = fgetc(inFile)) != EOF) {
+    frequencyTable[ch]++;
+  }
+
+  fclose(inFile);
+  return frequencyTable;
 }

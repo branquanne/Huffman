@@ -32,7 +32,7 @@
  *
  * @return The frequency table.
  */
-int *checkFrequency(char *fileContents);
+int *checkFrequency(char *fileName);
 
 #endif /* FREQ_TABLE_H */
 

@@ -29,26 +29,10 @@ bool checkOptionValidity(char **arguments) {
   return strcmp(arguments[1], "-encode") == 0 || strcmp(arguments[1], "-decode") == 0 ? true : false; // !Gör om till vanlig if
 }
 
-char *loadFileCharacters(char *fileName) {
-  FILE *file = fopen(fileName, "rb");
-  if (file == NULL) {
+bool checkInFile(char *fileName) {
+  FILE *inFile = fopen(fileName, "rb");
+  if (inFile == NULL) {
     printf("Could not open file %s\n", fileName);
-    exit(1);
   }
-
-  fseek(file, 0, SEEK_END);
-  long fileSize = ftell(file);
-  fseek(file, 0, SEEK_SET);
-
-  char *fileContent = malloc(fileSize + 1);
-  if (fileContent == NULL) {
-    printf("Could not allocate memory for file content\n");
-    exit(1);
-  }
-
-  fread(fileContent, 1, fileSize, file);
-  fileContent[fileSize] = '\0';
-  fclose(file);
-
-  return fileContent;
+  fclose(fileName);
 }

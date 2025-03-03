@@ -1,21 +1,8 @@
 // FILE: test_trie.c
 #include "freq_table.h"
-#include "pqueue.h"
 #include "trie.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-// Function to create a sample frequency table
-int *createSampleFrequencyTable() {
-  int *frequencyTable = (int *)calloc(256, sizeof(int));
-  frequencyTable['a'] = 5;
-  frequencyTable['b'] = 9;
-  frequencyTable['c'] = 12;
-  frequencyTable['d'] = 13;
-  frequencyTable['e'] = 16;
-  frequencyTable['f'] = 45;
-  return frequencyTable;
-}
 
 // Print the Huffman Trie
 void printTrie(TrieNode *root, int depth) {
@@ -33,7 +20,6 @@ void printTrie(TrieNode *root, int depth) {
 
 // Function to test building the Huffman Trie
 void testBuildHuffmanTrie() {
-  // int *frequencyTable = createSampleFrequencyTable();
   int *frequencyTable = checkFrequency("test.txt");
   TrieNode *root = buildHuffmanTrie(frequencyTable);
 
@@ -49,7 +35,7 @@ void testBuildHuffmanTrie() {
 
 // Function to test freeing the Trie
 void testFreeTrie() {
-  int *frequencyTable = createSampleFrequencyTable();
+  int *frequencyTable = checkFrequency("test.txt");
   TrieNode *root = buildHuffmanTrie(frequencyTable);
   freeTrie(root);
   printf("Test passed: Trie memory freed successfully\n");

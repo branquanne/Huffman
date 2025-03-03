@@ -23,15 +23,16 @@ int main(void) {
 
   // Test checkOptionValidity
   char *arguments[] = {"huffman", "-encode", "file0", "file1", "file2"};
-  printf("\nInput: %s %s %s %s %s\nResult:\t%s\n\n", arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], checkOptionValidity(arguments) ? "Passed" : "Failed");
+  bool isOk = checkOptionValidity(arguments);
+  printf("\nInput: %s %s %s %s %s\nResult:\t%s\n\n", arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], isOk ? "Passed" : "Failed");
 
   char *arguments2[] = {"huffman", "-decode", "file0", "file1", "file2"};
-  checkOptionValidity(arguments2);
-  printf("Input: %s %s %s %s %s\nResult:\t%s\n\n", arguments2[0], arguments2[1], arguments2[2], arguments2[3], arguments2[4], checkOptionValidity(arguments2) ? "Passed" : "Failed");
+  isOk = checkOptionValidity(arguments2);
+  printf("Input: %s %s %s %s %s\nResult:\t%s\n\n", arguments2[0], arguments2[1], arguments2[2], arguments2[3], arguments2[4], isOk ? "Passed" : "Failed");
 
   char *arguments3[] = {"huffman", "-invalid", "file0", "file1", "file2"};
-  checkOptionValidity(arguments3);
-  printf("Input: %s %s %s %s %s\nResult:\t%s\n\n", arguments3[0], arguments3[1], arguments3[2], arguments3[3], arguments3[4], checkOptionValidity(arguments) ? "Passed" : "Failed");
+  isOk = checkOptionValidity(arguments3);
+  printf("Input: %s %s %s %s %s\nResult:\t%s\n\n", arguments3[0], arguments3[1], arguments3[2], arguments3[3], arguments3[4], isOk ? "Passed" : "Failed");
 
   // Test loadFileCharacters
   char *fileContent = loadFileCharacters("test.txt");

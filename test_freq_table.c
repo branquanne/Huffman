@@ -15,10 +15,7 @@ int main(void) {
 
   // Print the frequency table
   for (int i = 0; i < 256; i++) {
-    // Only characters that appear in the file should be printed
-    if (sorted_freq_table[i][1] != 0) {
-      printf("Character: %c (ASCII value: %d)\t Frequency: %d\n", (char)sorted_freq_table[i][0], (int)sorted_freq_table[i][0], sorted_freq_table[i][1]);
-    }
+    printf("Character: %c (ASCII value: %d)\t Frequency: %d\n", (char)sorted_freq_table[i][0], (int)sorted_freq_table[i][0], sorted_freq_table[i][1]);
   }
 
   // Free memory

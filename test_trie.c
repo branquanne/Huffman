@@ -44,7 +44,7 @@ void testFreeTrie() {
 
 int main() {
   testBuildHuffmanTrie();
-  TrieNode *root = buildHuffmanTrie(checkFrequency("test.txt"));
+  TrieNode *root = buildHuffmanTrie(checkFrequency("löremipsum.txt"));
   printTrie(root, 0);
   testFreeTrie();
   return 0;

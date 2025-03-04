@@ -33,7 +33,7 @@ TrieNode *buildHuffmanTrie(int *frequencyTable) {
   }
 
   //  Build the Huffman Trie
-  while (pqueue_is_empty(pq) == 0) {
+  while (pqueue_is_empty(pq) == false) {
     TrieNode *left = (TrieNode *)pqueue_inspect_first(pq);
     pqueue_delete_first(pq);
     if (pqueue_is_empty(pq)) {

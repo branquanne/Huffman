@@ -25,7 +25,7 @@
 int *checkFrequency(char *fileName) {
   FILE *inFile = fopen(fileName, "rb");
 
-  int *frequencyTable = malloc(256 * sizeof(int));
+  int *frequencyTable = malloc(MAX_ASCII_SIZE * sizeof(int));
 
   for (int i = 0; i < MAX_ASCII_SIZE; i++) {
     frequencyTable[i] = 0;

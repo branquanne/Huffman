@@ -4,16 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-  unsigned char character;
-  bit_buffer *bit_sequence;
-} HuffmanTableEntry;
-
-typedef struct {
-  HuffmanTableEntry *entries;
-  size_t size;
-} HuffmanTable;
-
 void traverse_trie(TrieNode *node, bit_buffer *buffer, HuffmanTable *table, size_t *index) {
   if (node == NULL) {
     return;

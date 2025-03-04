@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 /**
  * @defgroup freq_table_h Frequency Table
  *

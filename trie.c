@@ -1,5 +1,4 @@
 #include "trie.h"
-#include "bit_buffer.h"
 #include "pqueue.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +26,7 @@ TrieNode *buildHuffmanTrie(int *frequencyTable) {
 
   // Create leaf nodes and insert them into the priority queue
   for (int i = 0; i < 256; i++) {
-    if (frequencyTable[i] > 0) {
+    if (frequencyTable[i] >= 0) {
       TrieNode *node = createNode((unsigned char)i, frequencyTable[i]);
       pqueue_insert(pq, node);
     }

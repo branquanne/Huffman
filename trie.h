@@ -1,4 +1,5 @@
-
+#ifndef TRIE_H
+#define TRIE_H
 
 typedef struct TrieNode {
   int frequency;
@@ -14,3 +15,5 @@ TrieNode *createNode(char character, int frequency);
 TrieNode *buildHuffmanTrie(int *frequencyTable);
 
 void freeTrie(TrieNode *root);
+
+#endif

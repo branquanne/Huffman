@@ -20,7 +20,7 @@ void printTrie(TrieNode *root, int depth) {
 
 // Function to test building the Huffman Trie
 void testBuildHuffmanTrie() {
-  int *frequencyTable = checkFrequency("test.txt");
+  int *frequencyTable = checkFrequency("löremipsum.txt");
   TrieNode *root = buildHuffmanTrie(frequencyTable);
 
   if (root == NULL) {
@@ -35,7 +35,7 @@ void testBuildHuffmanTrie() {
 
 // Function to test freeing the Trie
 void testFreeTrie() {
-  int *frequencyTable = checkFrequency("test.txt");
+  int *frequencyTable = checkFrequency("löremipsum.txt");
   TrieNode *root = buildHuffmanTrie(frequencyTable);
   freeTrie(root);
   printf("Test passed: Trie memory freed successfully\n");

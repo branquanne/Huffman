@@ -13,24 +13,17 @@
 int main(int argc, char **argv) {
 
   // Validera körningsargument (kan bryta ut till egen funktion)
-  checkNumberOfArguments(argc);
-  checkOptionValidity(argv);
+  validateData(argc, argv);
 
   char *option = argv[1];
   char *file0 = argv[2];
   char *file1 = argv[3];
   char *file2 = argv[4];
 
-  if (checkNumberOfArguments(argc) == false || checkOptionValidity(argv) == false) {
-    printf("nånting errror\n");
-    return 1;
-  }
+  // freq_table
+  int *freq_table = checkFrequency(file0);
 
-  // Load file in array byte-wise
-  char *fileContents = loadFileCharacters(file0);
-
-  // freq_tbale
-  int *freq_table = checkFrequency(fileContents);
+  
 
   // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa
   // huffmantabell -> encode (okomprimerad blir komprimerad)
@@ -42,4 +35,21 @@ int main(int argc, char **argv) {
   free(fileContents);
 
   return 0;
+}
+
+void validateData(int argc, char **argv) {
+  
+  for (int i = 2; i < argc; i++) {
+    checkInFile(argv[i]);
+  } 
+
+  if (checkNumberOfArguments(argc) == false) {
+    printf(stderr, "Invalid number of arguments\n");
+    exit(1);
+  }
+
+  if (checkOptionValidity(argv) == false) {
+    printf(stderr, "Invalid option\n");
+    exit(1);
+  }
 }

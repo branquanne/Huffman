@@ -2,6 +2,7 @@
 #define HUFFMAN_TABLE_H
 
 #include "bit_buffer.h"
+#include "common_headers.h"
 #include "trie.h"
 
 typedef struct {

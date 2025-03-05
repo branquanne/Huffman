@@ -1,62 +1,45 @@
 #include "huffman.h"
 #include "bit_buffer.h"
+#include "common_headers.h"
+#include "encode_decode.h"
 #include "freq_table.h"
-#include "trie.h"
+#include "pqueue.h"
 #include "validate_data.h"
-#include "huffman_tabell.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+/* G*/
 
 int main(int argc, char **argv) {
-  // Validate command-line arguments
-  if (!checkNumberOfArguments(argc) || !checkOptionValidity(argv)) {
-    printf("Invalid arguments\n");
-    return 1;
-  }
+
+  // Validera körningsargument (kan bryta ut till egen funktion)
+  checkNumberOfArguments(argc);
+  checkOptionValidity(argv);
 
   char *option = argv[1];
   char *file0 = argv[2];
   char *file1 = argv[3];
   char *file2 = argv[4];
 
-  if (option == "-encode") {
-    encode(file0, file1, file2);
+  if (checkNumberOfArguments(argc) == false || checkOptionValidity(argv) == false) {
+    printf("nånting errror\n");
+    return 1;
   }
 
-  if (option == "-decode") {
-    decode(file0, file1, file2);
-  }
+  // Load file in array byte-wise
+  char *fileContents = loadFileCharacters(file0);
 
-}
+  // freq_tbale
+  int *freq_table = checkFrequency(fileContents);
 
-void encode(char *file0, char *file1, char *file2) {
-  // Create frequency table
-  int *frequencyTable = checkFrequency(file0);
+  // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa
+  // huffmantabell -> encode (okomprimerad blir komprimerad)
+  //
+  // Validera input -> Frekvensanalys (file0) -> skapa huffman trie  ->
+  // decode (komprimerad återställs till original)
 
-  // Build Huffman Trie
-  TrieNode *root = buildHuffmanTrie(frequencyTable);
+  free(freq_table);
+  free(fileContents);
 
-  // Create Huffman Table
-  HuffmanTable *huffmanTable = createHuffmanTable();
-  buildHuffmanTable(root, huffmanTable, 0, 0);
-
-  // Encode file
-  encodeFile(file0, file1, huffmanTable);
-
-  // Free memory
-  freeTrie(root);
-  freeHuffmanTable(huffmanTable);
-  free(frequencyTable);
-}
-
-void decode(char *file0, char *file1, char *file2) {
-  // Create Huffman Table
-  HuffmanTable *huffmanTable = createHuffmanTable();
-
-  // Decode file
-  decodeFile(file0, file1, file2, huffmanTable);
-
-  // Free memory
-  freeHuffmanTable(huffmanTable);
+  return 0;
 }

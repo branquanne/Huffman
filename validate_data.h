@@ -1,9 +1,8 @@
 #ifndef VALIDATE_DATA_H
 #define VALIDATE_DATA_H
 
+#include "common_headers.h"
 #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 /**
  * @defgroup validate_data_h Validate Data

@@ -1,6 +1,8 @@
 #ifndef TRIE_H
 #define TRIE_H
 
+#include "common_headers.h"
+
 typedef struct TrieNode {
   int frequency;
   char character;

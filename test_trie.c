@@ -1,8 +1,6 @@
 // FILE: test_trie.c
 #include "freq_table.h"
 #include "trie.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 // Print the Huffman Trie
 void printTrie(TrieNode *root, int depth) {
@@ -44,8 +42,12 @@ void testFreeTrie() {
 
 int main() {
   testBuildHuffmanTrie();
+  printf("\n");
+
   TrieNode *root = buildHuffmanTrie(checkFrequency("löremipsum.txt"));
   printTrie(root, 0);
+  printf("\n");
+
   testFreeTrie();
   return 0;
 }

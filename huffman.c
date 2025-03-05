@@ -1,43 +1,46 @@
 #include "huffman.h"
 #include "bit_buffer.h"
+#include "common_headers.h"
+#include "encode_decode.h"
 #include "freq_table.h"
+#include "huffman_table.h"
 #include "pqueue.h"
 #include "validate_data.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-/* G*/
 
 int main(int argc, char **argv) {
-
-  // Validera körningsargument (kan bryta ut till egen funktion)
-  checkNumberOfArguments(argc);
-  checkOptionValidity(argv);
-
-  char *option = argv[1];
-  char *file0 = argv[2];
-  char *file1 = argv[3];
-  char *file2 = argv[4];
-
-  if (checkNumberOfArguments(argc) == false || checkOptionValidity(argv) == false) {
-    printf("nånting errror\n");
+  if (checkNumberOfArguments(argc) == false) {
+    printf("Usage: %s [-encode | -decode] <input file> <output file>\n", argv[0]);
+    return 1;
+  }
+  if (checkOptionValidity(argv) == false) {
+    printf("Invalid option: %s\n", argv[1]);
+    return 1;
+  }
+  if (checkInFile(argv[2]) == false) {
     return 1;
   }
 
-  // Load file in array byte-wise
-  char *fileContents = loadFileCharacters(file0);
+  char *option = argv[1];
+  char *inFile = argv[2];
+  char *outFile = argv[3];
 
-  // freq_tbale
-  int *freq_table = checkFrequency(fileContents);
+  int *frequencyTable = checkFrequency(inFile);
+  TrieNode *root = buildHuffmanTrie(frequencyTable);
+  HuffmanTable *table = create_huffman_table(root, MAX_ASCII_SIZE);
 
-  // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa
-  // huffmantabell -> encode (okomprimerad blir komprimerad)
-  //
-  // Validera input -> Frekvensanalys (file0) -> skapa huffman trie  ->
-  // decode (komprimerad återställs till original)
+  if (strcmp(option, "-encode") == 0) {
+    endodeFile(inFile, outFile, table);
+  } else {
+    decodeFile(inFile, outFile, root);
+  }
 
-  free(freq_table);
-  free(fileContents);
+  free(frequencyTable);
+  freeTrie(root);
+  for (size_t i = 0; i < table->size; i++) {
+    bit_buffer_free(table->entries[i].bit_sequence);
+  }
+  free(table->entries);
+  free(table);
 
   return 0;
 }

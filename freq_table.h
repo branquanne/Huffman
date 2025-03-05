@@ -1,9 +1,7 @@
 #ifndef FREQ_TABLE_H
 #define FREQ_TABLE_H
 
-#include <stdio.h>
-#include <stdlib.h>
-
+#include "common_headers.h"
 
 /**
  * @defgroup freq_table_h Frequency Table

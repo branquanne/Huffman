@@ -1,9 +1,4 @@
 #include "validate_data.h"
-#include "huffman.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 /*
  * File: validate_data.c
@@ -19,20 +14,26 @@
  *
  */
 
-/*  External functions  */
-
 bool checkNumberOfArguments(int numberOfArguments) {
-  return numberOfArguments == 5 ? true : false; // !Gör om till vanlig if
+  if (numberOfArguments == 5) {
+    return true;
+  }
+  return false;
 }
 
 bool checkOptionValidity(char **arguments) {
-  return strcmp(arguments[1], "-encode") == 0 || strcmp(arguments[1], "-decode") == 0 ? true : false; // !Gör om till vanlig if
+  if (strcmp(arguments[1], "-encode") == 0 || strcmp(arguments[1], "-decode") == 0) {
+    return true;
+  }
+  return false;
 }
 
 bool checkInFile(char *fileName) {
   FILE *inFile = fopen(fileName, "rb");
   if (inFile == NULL) {
     printf("Could not open file %s\n", fileName);
+    return false;
   }
-  fclose(fileName);
+  fclose(inFile);
+  return true;
 }

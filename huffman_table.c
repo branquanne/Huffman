@@ -1,8 +1,4 @@
-#include "huffman_tabell.h"
-#include "bit_buffer.h"
-#include "trie.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "huffman_table.h"
 
 // Function to traverse the Huffman Trie and create the Huffman Table sequence
 void traverse_trie(TrieNode *node, bit_buffer *buffer, HuffmanTable *table, size_t *index) {

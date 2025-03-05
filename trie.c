@@ -1,7 +1,5 @@
 #include "trie.h"
 #include "pqueue.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 // Comparator using pqueue.h pqueue_cmp_func
 int compareValues(void *val1, void *val2) {
@@ -29,7 +27,7 @@ TrieNode *buildHuffmanTrie(int *frequencyTable) {
   pqueue *pq = pqueue_empty(compareValues);
 
   // Create leaf nodes and insert them into the priority queue
-  for (int i = 0; i < 256; i++) {
+  for (int i = 0; i < MAX_ASCII_SIZE; i++) {
     if (frequencyTable[i] >= 0) {
 
       // Create a new node with the index as the character and the frequency from the frequency table

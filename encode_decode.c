@@ -21,7 +21,7 @@ void encodeFile(char *fileToEncode, char *outFile, HuffmanTable *table) {
     for (size_t i = 0; i table->size; i++) {
       if (table->entries[i].character == c) {
         for (size_t j = 0 < bit_buffer_size(table->entries[i].bit_sequence); j++) {
-          bit_buffer_append_bit(buffer, bit_buffer_get_bit(table->entries[i].bit_sequence, j));
+          bit_buffer_insert_bit(buffer, bit_buffer_inspect_bit(table->entries[i].bit_sequence, j));
         }
         break;
       }

@@ -20,25 +20,24 @@ int main(int argc, char **argv) {
   char *file1 = argv[3];
   char *file2 = argv[4];
 
+  // freq_table
+  int *freq_table = checkFrequency(file0);
+
+  // buildHuffmanTrie
+  TrieNode *root = buildHuffmanTrie(freq_table);
+
   if (strcmp(option, "-encode")) {
+    
+    HuffmanTable table = createHuffmanTable(root, MAX_ASCII_SIZE);
     // encode
-    encodeFile(file0, file1, file2);
+    encodeFile(file1, file2, table);
   } else if (strcmp(option, "-decode")) {
     // decode
-    decodeFile(file0, file1, file2);
+    decodeFile(file1, file2, root);
   }
-  
-
-
-
-  // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa
-  // huffmantabell -> encode (okomprimerad blir komprimerad)
-  //
-  // Validera input -> Frekvensanalys (file0) -> skapa huffman trie  ->
-  // decode (komprimerad återställs till original)
 
   free(freq_table);
-  free(fileContents);
+  free(root);
 
   return 0;
 }

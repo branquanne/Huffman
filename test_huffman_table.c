@@ -20,9 +20,9 @@ int main(void) {
   //   }
   // }
 
-  for (size_t i = 0; i < table->size; i++) {
-    printf("Character: %c, Bit sequence: %s\n", table->entries[i].character, bit_buffer_to_string(table->entries[i].bit_sequence));
-  }
+  // for (size_t i = 0; i < table->size; i++) {
+  //   printf("Character: %c, Bit sequence: %s\n", table->entries[i].character, bit_buffer_to_string(table->entries[i].bit_sequence));
+  // }
 
   // Sort the Huffman Table by bit sequence length
   for (size_t i = 0; i < table->size; i++) {
@@ -33,6 +33,10 @@ int main(void) {
         table->entries[j] = temp;
       }
     }
+  }
+
+  for (size_t i = 0; i < table->size; i++) {
+    printf("Character: %c, Bit sequence: %s\n", table->entries[i].character, bit_buffer_to_string(table->entries[i].bit_sequence));
   }
 
   // Print the Huffman Table using bit_puffer_print

@@ -1,4 +1,5 @@
 #include "encode_decode.h"
+#include "bit_buffer.h"
 #include "huffman_table.h"
 #include "trie.h"
 
@@ -58,26 +59,27 @@ void decodeFile(char *fileToDecode, char *outFile, TrieNode *root) {
 
     // Append the character to the buffer
     bit_buffer_insert_byte(buffer, (unsigned char)c);
+  }
 
-    // Traverse the Huffman Trie
-    TrieNode *node = root;
-    TrieNode *node = root;
-    for (size_t i = 0; i < bit_buffer_size(buffer); i++) {
-      int bit = bit_buffer_get_bit_value(buffer, i);
-      if (bit == 0) {
-        node = node->left;
-      } else {
-        node = node->right;
-      }
+  TrieNode *node = root;
+  size_t bit_index = 0;
+  while (bit_index < bit_buffer_size(buffer) * 8) {
+    size_t byte_index = bit_index / 8;
+    size_t bit_in_byte = bit_index % 8;
+    int bit = (buffer->array[byte_index] >> (7 - bit_in_byte)) & 1;
 
-      if (node->left == NULL && node->right == NULL) {
-        fputc(node->character, out);
-        node = root;
-      }
+    if (bit == 0) {
+      node = node->left;
+    } else {
+      node = node->right;
     }
 
-    // Write the character to the output file
-    fputc(node->character, out);
+    if (node->left == NULL && node->right == NULL) {
+      fputc(node->character, out);
+      node = root;
+    }
+
+    bit_index++;
   }
 
   // Free the bit buffer

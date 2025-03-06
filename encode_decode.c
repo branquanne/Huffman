@@ -5,12 +5,8 @@
 // Function to encode a file
 void endodeFile(char *fileToEncode, char *outFile, HuffmanTable *table) {
 
-  // Open the input file
-  FILE *in = fopen(fileToEncode, "rb");
-  if (in == NULL) {
-    printf("Could not open file %s\n", fileToEncode);
-    return;
-  }
+  // freq_table
+  int *freq_table = checkFrequency(fileToEncode);
 
   // Open the output file
   FILE *out = fopen(outFile, "wb");
@@ -19,6 +15,8 @@ void endodeFile(char *fileToEncode, char *outFile, HuffmanTable *table) {
     fclose(in);
     return;
   }
+
+  
 
   // Create a bit buffer
   bit_buffer *buffer = bit_buffer_empty();
@@ -66,6 +64,9 @@ void decodeFile(char *fileToDecode, char *outFile, TrieNode *root) {
     fclose(in);
     return;
   }
+
+  // freq_table
+  int *freq_table = checkFrequency(fileToDecode);
 
   // Create a bit buffer
   bit_buffer *buffer = bit_buffer_empty();

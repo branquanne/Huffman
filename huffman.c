@@ -20,10 +20,16 @@ int main(int argc, char **argv) {
   char *file1 = argv[3];
   char *file2 = argv[4];
 
-  // freq_table
-  int *freq_table = checkFrequency(file0);
-
+  if (strcmp(option, "-encode")) {
+    // encode
+    encodeFile(file0, file1, file2);
+  } else if (strcmp(option, "-decode")) {
+    // decode
+    decodeFile(file0, file1, file2);
+  }
   
+
+
 
   // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa
   // huffmantabell -> encode (okomprimerad blir komprimerad)

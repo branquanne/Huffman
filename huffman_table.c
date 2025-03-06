@@ -28,7 +28,7 @@ void traverse_trie(TrieNode *node, bit_buffer *buffer, HuffmanTable *table, size
 }
 
 // Function to create the Huffman Table
-HuffmanTable *create_huffman_table(TrieNode *root, size_t num_characters) {
+HuffmanTable *createHuffmanTable(TrieNode *root, size_t num_characters) {
 
   // Allocate memory for the Huffman Table
   HuffmanTable *table = malloc(sizeof(HuffmanTable));

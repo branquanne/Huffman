@@ -15,7 +15,7 @@ typedef struct {
   size_t size;
 } HuffmanTable;
 
-HuffmanTable *create_huffman_table(TrieNode *root, size_t num_characters);
+HuffmanTable *createHuffmanTable(TrieNode *root, size_t num_characters);
 
 void traverse_trie(TrieNode *node, bit_buffer *buffer, HuffmanTable *table, size_t *index);
 

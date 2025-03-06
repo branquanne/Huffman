@@ -5,7 +5,7 @@
 #include "huffman_table.h"
 #include "trie.h"
 
-void endodeFile(char *fileToEncode, char *outFile, HuffmanTable *table);
+void encodeFile(char *fileToEncode, char *outFile, HuffmanTable *table);
 
 void decodeFile(char *fileToDecode, char *outFile, TrieNode *root);
 

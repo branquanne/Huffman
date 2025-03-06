@@ -1,13 +1,9 @@
 #include "huffman.h"
 #include "bit_buffer.h"
-#include "common_headers.h"
 #include "encode_decode.h"
 #include "freq_table.h"
 #include "pqueue.h"
 #include "validate_data.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
 /* G*/
 
 int main(int argc, char **argv) {
@@ -20,16 +16,19 @@ int main(int argc, char **argv) {
   char *file1 = argv[3];
   char *file2 = argv[4];
 
+  int *freq_table = checkFrequency(file0);
+
+  // Skapa huffman trie
+  TrieNode *root = buildHuffmanTrie(freq_table);
+
   if (strcmp(option, "-encode")) {
-    // encode
-    encodeFile(file0, file1, file2);
+    // Skapa huffman tabell
+    HuffmanTable *table = createHuffmanTable(root, MAX_ASCII_SIZE);
+    encodeFile(file1, file2, table);
   } else if (strcmp(option, "-decode")) {
     // decode
-    decodeFile(file0, file1, file2);
+    decodeFile(file1, file2, root);
   }
-  
-
-
 
   // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa
   // huffmantabell -> encode (okomprimerad blir komprimerad)
@@ -38,16 +37,16 @@ int main(int argc, char **argv) {
   // decode (komprimerad återställs till original)
 
   free(freq_table);
-  free(fileContents);
+  freeTrie(root);
 
   return 0;
 }
 
 void validateData(int argc, char **argv) {
-  
+
   for (int i = 2; i < argc; i++) {
     checkInFile(argv[i]);
-  } 
+  }
 
   if (checkNumberOfArguments(argc) == false) {
     printf(stderr, "Invalid number of arguments\n");

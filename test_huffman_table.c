@@ -7,7 +7,7 @@ int main(void) {
 
   int *frequencyTable = checkFrequency("löremipsum.txt");
   TrieNode *root = buildHuffmanTrie(frequencyTable);
-  HuffmanTable *table = create_huffman_table(root, MAX_ASCII_SIZE);
+  HuffmanTable *table = createHuffmanTable(root, MAX_ASCII_SIZE);
 
   // sort bit sequences by length
   // for (size_t i = 0; i < table->size; i++) {
@@ -19,11 +19,6 @@ int main(void) {
   //     }
   //   }
   // }
-
-  // for (size_t i = 0; i < table->size; i++) {
-  //   printf("Character: %c, Bit sequence: %s\n", table->entries[i].character, bit_buffer_to_string(table->entries[i].bit_sequence));
-  // }
-
   // Sort the Huffman Table by bit sequence length
   for (size_t i = 0; i < table->size; i++) {
     for (size_t j = i + 1; j < table->size; j++) {
@@ -33,6 +28,10 @@ int main(void) {
         table->entries[j] = temp;
       }
     }
+  }
+
+  for (size_t i = 0; i < table->size; i++) {
+    printf("Character: %c, Bit sequence: %s\n", table->entries[i].character, bit_buffer_to_string(table->entries[i].bit_sequence));
   }
 
   // Print the Huffman Table using bit_puffer_print

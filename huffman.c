@@ -6,6 +6,15 @@ int node_cmp(void *a, void *b) {
   return ((Node *)a)->freq - ((Node *)b)->freq;
 }
 
+char *my_strdup(const char *s) {
+  size_t size = strlen(s) + 1;
+  char *p = malloc(size);
+  if (p) {
+    memcpy(p, s, size);
+  }
+  return p;
+}
+
 bool validate_args(int argc, char *argv[]) {
   if (argc != 5) {
     fprintf(stderr, "Usage: %s -encode|-decode <frequency_file> <input_file> <output_file>\n", argv[0]);
@@ -62,7 +71,7 @@ void generate_huffman_codes(Node *root, char *code, int top, char *codes[]) {
 
   if (!root->left && !root->right) {
     code[top] = '\0';
-    codes[(unsigned char)root->data] = strdup(code);
+    codes[(unsigned char)root->data] = my_strdup(code);
   }
 }
 

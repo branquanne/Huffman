@@ -1,11 +1,4 @@
 #include "huffman.h"
-#include "bit_buffer.h"
-#include "pqueue.h"
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #define ASCII_SIZE 256
 
@@ -111,7 +104,7 @@ Node *build_huffman_tree(int *freq) {
   // to ensure they get included in the tree
   for (int i = 0; i < ASCII_SIZE; ++i) {
     if (freq[i] == 0) {
-      pqueue_insert(pq, create_node((char)i, 1));
+      pqueue_insert(pq, create_node((char)i, 0));
       pqueue_count++; // Increment the counter when inserting a node
     }
   }

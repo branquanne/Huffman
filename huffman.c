@@ -1,60 +1,181 @@
 #include "huffman.h"
-#include "bit_buffer.h"
-#include "encode_decode.h"
-#include "freq_table.h"
-#include "pqueue.h"
-#include "validate_data.h"
-/* G*/
 
-int main(int argc, char **argv) {
+#define ASCII_SIZE 256
 
-  // Validera körningsargument (kan bryta ut till egen funktion)
-  validateData(argc, argv);
+int node_cmp(void *a, void *b) {
+  return ((Node *)a)->freq - ((Node *)b)->freq;
+}
 
-  char *option = argv[1];
-  char *file0 = argv[2];
-  char *file1 = argv[3];
-  char *file2 = argv[4];
-
-  int *freq_table = checkFrequency(file0);
-
-  // Skapa huffman trie
-  TrieNode *root = buildHuffmanTrie(freq_table);
-
-  if (strcmp(option, "-encode")) {
-    // Skapa huffman tabell
-    HuffmanTable *table = createHuffmanTable(root, MAX_ASCII_SIZE);
-    encodeFile(file1, file2, table);
-  } else if (strcmp(option, "-decode")) {
-    // decode
-    decodeFile(file1, file2, root);
+bool validate_args(int argc, char *argv[]) {
+  if (argc != 5) {
+    fprintf(stderr, "Usage: %s -encode|-decode <frequency_file> <input_file> <output_file>\n", argv[0]);
+    return false;
   }
 
-  // Validera input -> Frekvensanalys (file0) -> skapa huffman trie -> skapa
-  // huffmantabell -> encode (okomprimerad blir komprimerad)
-  //
-  // Validera input -> Frekvensanalys (file0) -> skapa huffman trie  ->
-  // decode (komprimerad återställs till original)
+  if (strcmp(argv[1], "-encode") != 0 && strcmp(argv[1], "-decode") != 0) {
+    fprintf(stderr, "Usage: %s -encode|-decode <frequency_file> <input_file> <output_file>\n", argv[0]);
+    return false;
+  }
+  return true;
+}
 
-  free(freq_table);
-  freeTrie(root);
+int *frequency_table(char *fileName) {
+  FILE *inFile = fopen(fileName, "rb");
+  if (inFile == NULL) {
+    fprintf(stderr, "Error: Cannot open file %s\n", fileName);
+    exit(1);
+  }
+
+  int *frequencyTable = (int *)malloc(ASCII_SIZE * sizeof(int));
+  for (int i = 0; i < ASCII_SIZE; i++) {
+    frequencyTable[i] = 0;
+  }
+  if (frequencyTable == NULL) {
+    fprintf(stderr, "Error: Cannot allocate memory\n");
+    exit(1);
+  }
+
+  int ch;
+  while ((ch = fgetc(inFile)) != EOF) {
+    if (ch >= 0 && ch < ASCII_SIZE) {
+      frequencyTable[ch]++;
+    } else {
+      fprintf(stderr, "Warning: Character out of range %d\n", ch);
+    }
+  }
+
+  fclose(inFile);
+  return frequencyTable;
+}
+
+// Function to generate Huffman codes
+void generate_huffman_codes(Node *root, char *code, int top, char *codes[]) {
+  if (root->left) {
+    code[top] = '0';
+    generate_huffman_codes(root->left, code, top + 1, codes);
+  }
+
+  if (root->right) {
+    code[top] = '1';
+    generate_huffman_codes(root->right, code, top + 1, codes);
+  }
+
+  if (!root->left && !root->right) {
+    code[top] = '\0';
+    codes[(unsigned char)root->data] = strcpy(malloc(strlen(code) + 1), code);
+  }
+}
+
+// Function to create a new node
+Node *create_node(char data, int freq) {
+  Node *node = (Node *)malloc(sizeof(Node));
+  if (node == NULL) {
+    fprintf(stderr, "Error: Cannot allocate memory\n");
+    exit(1);
+  }
+
+  node->data = data;
+  node->freq = freq;
+  node->left = node->right = NULL;
+
+  return node;
+}
+
+// Function to build the Huffman tree
+Node *build_huffman_tree(int *freq) {
+  pqueue *pq = pqueue_empty(node_cmp);
+  int pqueue_count = 0; // Initialize a counter for the priority queue size
+
+  // First, add all characters with non-zero frequency
+  for (int i = 0; i < ASCII_SIZE; ++i) {
+    if (freq[i]) {
+      pqueue_insert(pq, create_node((char)i, freq[i]));
+      pqueue_count++; // Increment the counter when inserting a node
+    }
+  }
+
+  // If no characters were added (empty file), add at least one
+  if (pqueue_count == 0) {
+    pqueue_insert(pq, create_node('\0', 1));
+    pqueue_count++;
+  }
+
+  // Add characters with zero frequency, giving them a very small frequency (1)
+  // to ensure they get included in the tree
+  for (int i = 0; i < ASCII_SIZE; ++i) {
+    if (freq[i] == 0) {
+      pqueue_insert(pq, create_node((char)i, 0));
+      pqueue_count++; // Increment the counter when inserting a node
+    }
+  }
+
+  while (pqueue_count > 1) { // Use the counter instead of pqueue_size
+    Node *left = pqueue_inspect_first(pq);
+    pqueue_delete_first(pq);
+    pqueue_count--; // Decrement the counter when deleting a node
+
+    Node *right = pqueue_inspect_first(pq);
+    pqueue_delete_first(pq);
+    pqueue_count--; // Decrement the counter when deleting a node
+
+    Node *top = create_node('$', left->freq + right->freq);
+    top->left = left;
+    top->right = right;
+    pqueue_insert(pq, top);
+    pqueue_count++; // Increment the counter when inserting a node
+  }
+
+  Node *root = pqueue_inspect_first(pq);
+  pqueue_kill(pq);
 
   return root;
 }
 
-void validateData(int argc, char **argv) {
-
-  for (int i = 2; i < argc; i++) {
-    checkInFile(argv[i]);
-  }
-
-  if (checkNumberOfArguments(argc) == false) {
-    printf(stderr, "Invalid number of arguments\n");
+// Function to encode the input file
+void encode_file(char *input_filename, char *output_filename, char *codes[]) {
+  FILE *input_file = fopen(input_filename, "rb");
+  FILE *output_file = fopen(output_filename, "wb");
+  if (input_file == NULL || output_file == NULL) {
+    fprintf(stderr, "Error: Cannot open input or output file\n");
     exit(1);
   }
 
-  if (checkOptionValidity(argv) == false) {
-    printf(stderr, "Invalid option\n");
+  bit_buffer *buffer = bit_buffer_empty();
+  int c;
+  while ((c = fgetc(input_file)) != EOF) {
+    if (c >= 0 && c < ASCII_SIZE) {
+      char *code = codes[c];
+      if (code == NULL) {
+        fprintf(stderr, "Error: Cannot encode character %d\n", c);
+        exit(1);
+      }
+      for (int i = 0; code[i] != '\0'; ++i) {
+        bit_buffer_insert_bit(buffer, code[i] == '1');
+      }
+    } else {
+      fprintf(stderr, "Error: Character out of range %d\n", c);
+      exit(1);
+    }
+  }
+
+  while (bit_buffer_size(buffer) % 8 != 0) {
+    bit_buffer_insert_bit(buffer, 0);
+  }
+  char *byte_array = bit_buffer_to_byte_array(buffer);
+  fwrite(byte_array, sizeof(char), bit_buffer_size(buffer) / 8, output_file);
+  free(byte_array);
+
+  bit_buffer_free(buffer);
+  fclose(input_file);
+  fclose(output_file);
+}
+
+// Function to decode the input file
+void decode_file(char *input_filename, char *output_filename, Node *root) {
+  FILE *input_file = fopen(input_filename, "rb");
+  FILE *output_file = fopen(output_filename, "wb");
+  if (input_file == NULL || output_file == NULL) {
+    fprintf(stderr, "Error: Cannot open input or output file\n");
     exit(1);
   }
 

@@ -1,7 +1,13 @@
 #ifndef HUFFMAN_H
 #define HUFFMAN_H
 
+#include "bit_buffer.h"
+#include "pqueue.h"
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 // Define the Node structure
 typedef struct Node {

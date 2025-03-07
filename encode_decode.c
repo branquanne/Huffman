@@ -1,5 +1,4 @@
 #include "encode_decode.h"
-#include "bit_buffer.h"
 #include "huffman_table.h"
 #include "trie.h"
 
@@ -18,32 +17,30 @@ void encodeFile(char *fileToEncode, char *outFile, HuffmanTable *table) {
   // Read the input file character by character
   int c;
   while ((c = fgetc(in)) != EOF) {
-
-    // Find the character in the Huffman Table
     for (size_t i = 0; i < table->size; i++) {
-      if (table->entries[i].character == (unsigned char)c) {
-
-        // Append the bit sequence to the buffer
-        bit_buffer_append(buffer, table->entries[i].bit_sequence);
+      if (table->entries[i].character == c) {
+        for (size_t j = 0; j < bit_buffer_size(table->entries[i].bit_sequence); j++) {
+          bit_buffer_insert_bit(buffer, bit_buffer_inspect_bit(table->entries[i].bit_sequence, j));
+        }
         break;
       }
-    }
+    } 
   }
 
-  // Write the buffer to the output file
-  bit_buffer_write(buffer, out);
-
+  char *byteArray = bit_buffer_to_byte_array(buffer);
+  size_t byteArraySize = (bit_buffer_size(buffer) + 7) / 8; // Calculate the number of bytes
+  fwrite(byteArray, 1, byteArraySize, out);
+  free(byteArray);
   // Free the byte array
   free(byteArray);
 
   // Clear the bit buffer
-  bit_buffer_clear(buffer); 
+  bit_buffer_free(buffer); 
 
   // Close the files
   fclose(in);
   fclose(out);
 }
-
 // Function to decode a file
 void decodeFile(char *fileToDecode, char *outFile, TrieNode *root) {
 
@@ -66,10 +63,8 @@ void decodeFile(char *fileToDecode, char *outFile, TrieNode *root) {
 
   TrieNode *node = root;
   size_t bit_index = 0;
-  while (bit_index < bit_buffer_size(buffer) * 8) {
-    size_t byte_index = bit_index / 8;
-    size_t bit_in_byte = bit_index % 8;
-    int bit = (buffer->array[byte_index] >> (7 - bit_in_byte)) & 1;
+  while (bit_index < bit_buffer_size(buffer)) {
+    int bit = bit_buffer_inspect_bit(buffer, bit_index);
 
     if (bit == 0) {
       node = node->left;

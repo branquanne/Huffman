@@ -21,7 +21,7 @@ int *checkFrequency(char *fileName) {
   FILE *inFile = fopen(fileName, "rb");
   if (inFile == NULL) {
     printf("Could not open file %s\n", fileName);
-    return;
+    return NULL;
   }
 
   int *frequencyTable = malloc(MAX_ASCII_SIZE * sizeof(int));

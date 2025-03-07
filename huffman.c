@@ -15,12 +15,12 @@ int node_cmp(void *a, void *b) {
 
 bool validate_args(int argc, char *argv[]) {
   if (argc != 5) {
-    fprintf(stderr, "Usage: %s <input file> <output file>\n", argv[0]);
+    fprintf(stderr, "Usage: %s -encode|-decode <frequency_file> <input_file> <output_file>\n", argv[0]);
     return false;
   }
 
   if (strcmp(argv[1], "-encode") != 0 && strcmp(argv[1], "-decode") != 0) {
-    fprintf(stderr, "Usage: %s <input file> <output file>\n", argv[0]);
+    fprintf(stderr, "Usage: %s -encode|-decode <frequency_file> <input_file> <output_file>\n", argv[0]);
     return false;
   }
   return true;
@@ -33,7 +33,10 @@ int *frequency_table(char *fileName) {
     exit(1);
   }
 
-  int *frequencyTable = (int *)calloc(ASCII_SIZE, sizeof(int));
+  int *frequencyTable = (int *)malloc(ASCII_SIZE * sizeof(int));
+  for (int i = 0; i < ASCII_SIZE; i++) {
+    frequencyTable[i] = 0;
+  }
   if (frequencyTable == NULL) {
     fprintf(stderr, "Error: Cannot allocate memory\n");
     exit(1);
@@ -90,9 +93,25 @@ Node *build_huffman_tree(int *freq) {
   pqueue *pq = pqueue_empty(node_cmp);
   int pqueue_count = 0; // Initialize a counter for the priority queue size
 
+  // First, add all characters with non-zero frequency
   for (int i = 0; i < ASCII_SIZE; ++i) {
     if (freq[i]) {
       pqueue_insert(pq, create_node((char)i, freq[i]));
+      pqueue_count++; // Increment the counter when inserting a node
+    }
+  }
+
+  // If no characters were added (empty file), add at least one
+  if (pqueue_count == 0) {
+    pqueue_insert(pq, create_node('\0', 1));
+    pqueue_count++;
+  }
+
+  // Add characters with zero frequency, giving them a very small frequency (1)
+  // to ensure they get included in the tree
+  for (int i = 0; i < ASCII_SIZE; ++i) {
+    if (freq[i] == 0) {
+      pqueue_insert(pq, create_node((char)i, 1));
       pqueue_count++; // Increment the counter when inserting a node
     }
   }

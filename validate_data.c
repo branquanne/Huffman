@@ -1,6 +1,7 @@
 #include "validate_data.h"
-#include "stdio.h"
-#include "string.h"
+#include <stdio.h>
+#include <string.h>
+
 
 bool validate_args(int argc, char *argv[]) {
 	if (argc != 5) {

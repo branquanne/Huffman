@@ -3,6 +3,7 @@
 
 #include "trie.h"
 
+
 // Function to generate Huffman codes
 void generate_huffman_codes(Node *root, char *code, int top, char *codes[]);
 

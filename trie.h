@@ -2,6 +2,7 @@
 #define TRIE_H
 
 #include "freq_table.h"
+#include "pqueue.h"
 
 // Define the Node structure
 typedef struct Node {

@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include "huffman.h"
 
 // Function to generate Huffman codes

@@ -22,55 +22,82 @@
  *
  * \section intro_sec Introduction
  * 
- * This program implement Huffman coding for compressing and decompressing text files.
- * It constructs a frequency table from a reference file, builds a Huffman trie, and
- * than encodes or decodes files using the generated Huffman codes. 
+ * This program implements Huffman coding for compressing and decompressing text files. 
+ * It follows these main steps:
+ * 1. Construct a frequency table from the reference file. 
+ * 2. Builds a Huffman tree (trie) based on character frequencies.
+ * 3. Generates Huffman codes for efficient encoding. 
+ * 4. Encodes or decodes files using the generated codes. 
  *
  * \section structure_sec Project Structure
  *
- * The project consists of several source and header files, each of which implements a specific part of the Huffman coding process.
+ * The project is modular, consisting of multiple source and header files, each representing a distinct 
+ * part of the Huffman coding process. 
  *
  * \subsection files_sec Files
  *
- * - `huffman.c`: Contains the main function and orchestrates the encoding and decoding processes.
- * - `huffman.h`: Header file for `huffman.c`, includes function declarations and necessary includes.
- * - `encode.c`: Implements functions for encoding files.
- * - `encode.h`: Header file for `encode.c`.
- * - `decode.c`: Implements functions for decoding files.
- * - `decode.h`: Header file for `decode.c`.
- * - `freq_table.c`: Implements functionality to create and manage the frequency table.
- * - `freq_table.h`: Header file for `freq_table.c`.
- * - `huffman_table.c`: Implements the Huffman table used for encoding and decoding.
- * - `huffman_table.h`: Header file for `huffman_table.c`.
- * - `trie.c`: Implements the trie data structure for Huffman coding.
- * - `trie.h`: Header file for `trie.c`.
- *
+ * **Main Components:**
+ * - `huffman.c`-> Contains the main function and arrange encoding/decoding. 
+ * - `huffman.h`-> Header for `huffman.c`, includes function declarations. 
+ * 
+ * 
+ * **Encoding & Decoding:**
+ * - `encode.c`-> Handles encoding logic. 
+ * - `encode.h`-> Header for `encode.c`.
+ * - `decode.c`-> Handles decoding logic.
+ * - `decode.h`-> Header for `decode.c`.
+ * 
+ * **Data Structures:**
+ * - `trie.c`-> Implements the Huffman tree (trie) for encoding/decoding.
+ * - `trie.h`-> Header for `trie.c`.
+ * - `pqueue.c`-> Implements the priority queue for Huffman tree construction.
+ * - `pqueue.h`-> Header for `pqueue.c`.
+ * - `list.c`-> Implements a linked list used by the priority queue.
+ * - `list.h`-> Header for `list.c`.
+ * 
+ * **Support Functions:**
+ * - `freq_table.c`-> Generates a character frequency table from input files.
+ * - `freq_table.h`-> Header for `freq_table.c`.
+ * - `huffman_table.c`-> Creates Huffman codes from the Huffman tree.
+ * - `huffman_table.h`-> Header for `huffman_table.c`.
+ * - `bit_buffer.c`-> Manages bitwise operations for efficient encoding.
+ * - `bit_buffer.h`-> Header for `bit_buffer.c`. 
+ * 
  * \subsection datatypes_sec Data Types
  *
- * The project uses several custom data types, some of which are provided and some are implemented as part of the project:
- *
- * - `Node`: Represents a node in the Huffman tree (defined in `trie.h`).
- * - `bit_buffer`: Used for handling operations involving bits (defined in `bit_buffer.h`).
- * - `frequency_table`: Represents the frequency of each byte in the input file (defined in `freq_table.h`).
- * - `huffman_table`: Represents the Huffman codes for each byte (defined in `huffman_table.h`).
- * - `list`: A doubly linked list used by the priority queue (defined in `list.h`).
- * - `pqueue`: A priority queue used during the construction of the Huffman tree (defined in `pqueue.h`).
+ * The program uses several custom data structures to mange the Huffman coding process: 
+ * 
+ * **Custom Data Types:**
+ * - `Node`-> Represents a node in the Huffman tree (`trie.h`). 
+ * - `pqueue`-> A priority queue used to build the Huffman tree (`pqueue.h`). 
+ * - `list`-> A doubly linked list used in the priority queue (`list.h`).
+ * - `frequency_table`-> Stores character frequency counts (`freq_table.h`).
+ * - `huffman_table`-> Maps characters to their Huffman codes (`huffman_table.h`).
+ * - `bit_buffer`-> Stores and manipulates bits for encoding (`bit_buffer.h`).
+ * 
+ * **Data Type Relationships:**
+ * - `frequency_table`-> Provides data to build the Huffman tree.
+ * - `pqueue` -> Manages nodes during Huffman tree construction. 
+ * - `bit_buffer`-> Ensures efficient bit level encoding.
+ * - `huffman_table`-> Stores codes generated from the Huffman tree.
+ * - `Node`-> Used in `trie.c` to construct the Huffman tree.
  *
  * \section usage_sec Usage
  *
- * The program is run from the command line and can be used to either encode or decode files:
+ * The program is run from the command line and can either encode or decode files. 
  *
- * USAGE: 
+ * **Command Syntax:**
+ * ```
  * huffman [OPTION] [FILE0] [FILE1] [FILE2]
- * Options: 
- * -encode encodes FILE1 according to frequency analysis done on FILE0. Stores the result in FILE2
- * -decode decodes FILE1 according to frequency analysis done on FILE0. Stores the result in FILE2
+ * ```
+ * **Options:** 
+ * - `-encode` Encodes `FILE1` based on frequency analysis from `FILE0`, storing the result in `FILE2`. 
+ * - `-decode` Decodes `FILE1` using Huffman codes obtained from `FILE0`, restoring original content into `FILE2`. 
  *
- * Example commands:
- *
+ * **Example Usage:**
  * \code{.sh}
- * huffman -encode frequence.txt infil.txt utfil.kodad
- * huffman -decode frequence.txt infil.kodad utfil.txt
+ * huffman -encode frequency.txt infile.txt outfile.encoded
+ * huffman -decode frequency.txt infile.encoded outfile.decoded
  * \endcode
  *
  */

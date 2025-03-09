@@ -33,6 +33,8 @@ void encode_file(char *input_filename, char *output_filename, char *codes[], lon
 		char *code = codes[c];
 		if (code == NULL) {
 		  fprintf(stderr, "Error: Cannot encode character %d\n", c);
+		  fclose(input_file);
+		  fclose(output_file);
 		  exit(1);
 		}
 		for (int i = 0; code[i] != '\0'; ++i) {

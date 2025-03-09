@@ -26,6 +26,12 @@ void decode_file(char *input_filename, char *output_filename, Node *root) {
 	}
   
 	Node *current = root;
+	if (!root) {
+		fprintf(stderr, "Error: Huffman tree is NULL. Cannot decode.\n");
+		fclose(input_file);
+		fclose(output_file);
+		exit(1);
+	}
 	int bit;
 	while ((bit = fgetc(input_file)) != EOF) {
 	  for (int i = 7; i >= 0; i--) {

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 /**
- * @defgroup freq_table Huffman
+ * @defgroup freq_table Frequency Table
  * 
  * @brief A module for generating a frequency table for characters in a file.
  * 

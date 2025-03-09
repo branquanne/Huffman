@@ -63,8 +63,10 @@ Node *build_huffman_tree(int *freq);
  *
  * Recursively frees the memory allocated for each node in the Huffman tree.
  *
- *
  * @param root A pointer to the root node of the Huffman tree.
+ * 
+ * @return -
+ * 
  */
 void free_huffman_tree(Node *root);
 

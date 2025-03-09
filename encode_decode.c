@@ -2,7 +2,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Function to encode the input file
+/*
+ * File: encode_decode.c
+ *
+ * Description: This file contains functions for encoding and decoding files using Huffman coding.
+ *              The encoding function compresses a file based on given Huffman codes, while the 
+ *              decoding function reconstructs the original data using a Huffman tree.
+ *
+ * Author: Henrik Röjvall & Bran Quanne
+ *
+ * Date: 2025-03-08
+ *
+ */
+
+
+/* External functions */
+
 void encode_file(char *input_filename, char *output_filename, char *codes[], long *input_size, long *output_size) {
   FILE *input_file = fopen(input_filename, "rb");
   FILE *output_file = fopen(output_filename, "wb");
@@ -43,7 +58,7 @@ void encode_file(char *input_filename, char *output_filename, char *codes[], lon
   fclose(output_file);
 }
 
-// Function to decode the input file
+
 void decode_file(char *input_filename, char *output_filename, Node *root) {
   FILE *input_file = fopen(input_filename, "rb");
   FILE *output_file = fopen(output_filename, "wb");

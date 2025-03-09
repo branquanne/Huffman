@@ -28,6 +28,8 @@
  * @param top Index representing the current position in the code array.
  * @param codes Array where the generated Huffman codes will be stored.
  * 
+ * @return -
+ * 
  */
 void generate_huffman_codes(Node *root, char *code, int top, char *codes[]);
 

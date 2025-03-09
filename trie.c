@@ -4,7 +4,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Function to create a new node
+/*
+ * File: trie.c
+ *
+ * Description: This file contains functions for creating and managing nodes
+ *              in a Huffman tree. The tree is built using a priority queue.
+ *              The nodes are used to generate Huffman codes for encoding and
+ *              decoding files. 
+ * 
+ * Author: Henrik Röjvall & Bran Quanne
+ * 
+ * Date: 2025-03-08
+ * 
+ */
+
+/* External functions */
+
 Node *create_node(char data, int freq) {
   Node *node = (Node *)malloc(sizeof(Node));
   if (node == NULL) {
@@ -19,48 +34,43 @@ Node *create_node(char data, int freq) {
   return node;
 }
 
-// Function to build the Huffman tree
 Node *build_huffman_tree(int *freq) {
   pqueue *pq = pqueue_empty(node_cmp);
-  int pqueue_count = 0; // Initialize a counter for the priority queue size
+  int pqueue_count = 0; 
 
-  // First, add all characters with non-zero frequency
   for (int i = 0; i < ASCII_SIZE; ++i) {
     if (freq[i]) {
       pqueue_insert(pq, create_node((char)i, freq[i]));
-      pqueue_count++; // Increment the counter when inserting a node
+      pqueue_count++; 
     }
   }
 
-  // If no characters were added (empty file), add at least one
   if (pqueue_count == 0) {
     pqueue_insert(pq, create_node('\0', 1));
     pqueue_count++;
   }
 
-  // Add characters with zero frequency, giving them a very small frequency (1)
-  // to ensure they get included in the tree
   for (int i = 0; i < ASCII_SIZE; ++i) {
     if (freq[i] == 0) {
       pqueue_insert(pq, create_node((char)i, 0));
-      pqueue_count++; // Increment the counter when inserting a node
+      pqueue_count++; 
     }
   }
 
-  while (pqueue_count > 1) { // Use the counter instead of pqueue_size
+  while (pqueue_count > 1) { 
     Node *left = pqueue_inspect_first(pq);
     pqueue_delete_first(pq);
-    pqueue_count--; // Decrement the counter when deleting a node
+    pqueue_count--; 
 
     Node *right = pqueue_inspect_first(pq);
     pqueue_delete_first(pq);
-    pqueue_count--; // Decrement the counter when deleting a node
+    pqueue_count--; 
 
     Node *top = create_node('$', left->freq + right->freq);
     top->left = left;
     top->right = right;
     pqueue_insert(pq, top);
-    pqueue_count++; // Increment the counter when inserting a node
+    pqueue_count++; 
   }
 
   Node *root = pqueue_inspect_first(pq);
@@ -69,7 +79,6 @@ Node *build_huffman_tree(int *freq) {
   return root;
 }
 
-// Function to free the memory allocated for the Huffman tree
 void free_huffman_tree(Node *root) {
   if (root == NULL) {
     return;

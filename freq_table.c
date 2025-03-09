@@ -2,6 +2,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+ * File: freq_table.c
+ *
+ * Description: This file implements a function to generate a frequency table
+ * 				for characters in a given file. The table counts occurrences 
+ *              of each ASCII character in the file. 
+ * 
+ * Author: Henrik Röjvall & Bran Quanne
+ * 
+ * Date: 2025-03-08
+ * 
+ */
+
+/* External functions */
+
 int *frequency_table(char *fileName) {
 	FILE *inFile = fopen(fileName, "rb");
 	if (inFile == NULL) {

@@ -22,7 +22,8 @@
  * @brief A module for implementing Huffman coding for file compression
  * and decompression.
  *
- * This module provides a compare function for nodes of a Huffman tree.abort
+ * This module provides a compare function for nodes of a Huffman tree.
+ * It also provides a function for validating command-line arguments.
  *
  * @author Henrik Röjvall & Bran Quanne
  * @since 2025-03-08
@@ -42,20 +43,6 @@
  * a positive value if a has a higher frequenxy, and zero if they are equal.
  */
 int node_cmp(void *a, void *b);
-
-/**
- * @defgroup validate_data Huffman
- *
- * @brief A module for validationg command-line arguments.
- *
- * This module provides a function to validate the arguments provided
- * by the user to ensure correct usage of the program.
- *
- * @author Henrik Röjvall & Bran Quanne
- * @since 2025-03-08
- *
- * @{
- */
 
 /**
  * @brief Validate the command-line arguments.

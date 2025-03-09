@@ -1,8 +1,18 @@
 #include "huffman.h"
 
-int node_cmp(void *a, void *b) {
-  return ((Node *)a)->freq - ((Node *)b)->freq;
-}
+/*
+ * File: huffman.c
+ *
+ * Description: This file contains the main function for the Huffman coding
+ *              program. The program can encode and decode files using the
+ *              Huffman coding algorithm.
+ *
+ * Author: Henrik Röjvall & Bran Quanne
+ * 
+ * Date: 2025-03-08
+ * 
+ */
+
 
 // Main function
 int main(int argc, char **argv) {
@@ -37,6 +47,8 @@ int main(int argc, char **argv) {
   return 0;
 }
 
+/* External functions */
+
 bool validate_args(int argc, char *argv[]) {
   if (argc != 5) {
     printf("USAGE: \n");
@@ -56,4 +68,8 @@ bool validate_args(int argc, char *argv[]) {
     return false;
   }
   return true;
+}
+
+int node_cmp(void *a, void *b) {
+  return ((Node *)a)->freq - ((Node *)b)->freq;
 }

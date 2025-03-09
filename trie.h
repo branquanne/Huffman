@@ -5,7 +5,7 @@
 #include "pqueue.h"
 
 /**
- * @defgroup trie_h Huffman
+ * @defgroup trie_h Trie
  *
  * @brief A module for building a Huffman tree using a priority queue.
  *

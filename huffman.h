@@ -4,7 +4,8 @@
 #define ASCII_SIZE 256
 
 #include "bit_buffer.h"
-#include "encode_decode.h"
+#include "encode.h"
+#include "decode.h"
 #include "freq_table.h"
 #include "huffman_table.h"
 #include "list.h"
@@ -17,12 +18,13 @@
 #include <string.h>
 
 /*!
- * \mainpage Huffman Coding Project
+ * \mainpage Huffman Coding
  *
  * \section intro_sec Introduction
- *
- * Huffman Coding is a data compression algorithm used by several popular file formats such as ZIP, JPEG, and MP3 as part of the compression process.
- * This project involves implementing a program that compresses and decompresses text files using Huffman coding.
+ * 
+ * This program implement Huffman coding for compressing and decompressing text files.
+ * It constructs a frequency table from a reference file, builds a Huffman trie, and
+ * than encodes or decodes files using the generated Huffman codes. 
  *
  * \section structure_sec Project Structure
  *
@@ -32,8 +34,10 @@
  *
  * - `huffman.c`: Contains the main function and orchestrates the encoding and decoding processes.
  * - `huffman.h`: Header file for `huffman.c`, includes function declarations and necessary includes.
- * - `encode_decode.c`: Implements functions for encoding and decoding files.
- * - `encode_decode.h`: Header file for `encode_decode.c`.
+ * - `encode.c`: Implements functions for encoding files.
+ * - `encode.h`: Header file for `encode.c`.
+ * - `decode.c`: Implements functions for decoding files.
+ * - `decode.h`: Header file for `decode.c`.
  * - `freq_table.c`: Implements functionality to create and manage the frequency table.
  * - `freq_table.h`: Header file for `freq_table.c`.
  * - `huffman_table.c`: Implements the Huffman table used for encoding and decoding.
@@ -69,9 +73,6 @@
  * huffman -decode frequence.txt infil.kodad utfil.txt
  * \endcode
  *
- * \section contact_sec Contact
- *
- * For any issues or inquiries, please contact the course responsible.
  */
 
 /**

@@ -4,7 +4,7 @@
 #include "trie.h"
 
 /**
- * @defgroup huffman_table_h Huffman
+ * @defgroup huffman_table_h Huffman Table
  * 
  * @brief A module for generationg Huffman codes from a Huffman tree.abort
  * 

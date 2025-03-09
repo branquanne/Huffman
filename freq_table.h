@@ -34,8 +34,9 @@
  */
 int *frequency_table(char *fileName);
 
-#endif // FREQ_TABLE_H
-
 /** 
  * @} 
  */
+
+#endif // FREQ_TABLE_H
+

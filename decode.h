@@ -36,8 +36,9 @@
  */
 void decode_file(char *input_filename, char *output_filename, Node *root);
 
-#endif // DECODE_H
-
 /**
  * @}
  */
+
+#endif // DECODE_H
+

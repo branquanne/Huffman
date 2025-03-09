@@ -37,8 +37,9 @@
  */
 void encode_file(char *input_filename, char *output_filename, char *codes[], long *input_size, long *output_size);
 
-#endif // ENCODE_H
-
 /**
  * @}
  */
+
+#endif // ENCODE_H
+

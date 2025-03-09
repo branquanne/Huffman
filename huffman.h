@@ -146,8 +146,9 @@ int node_cmp(void *a, void *b);
  */
 bool validate_args(int argc, char *argv[]);
 
-#endif // HUFFMAN_H
-
 /**
  * @}
  */
+
+#endif // HUFFMAN_H
+

@@ -70,8 +70,9 @@ Node *build_huffman_tree(int *freq);
  */
 void free_huffman_tree(Node *root);
 
-#endif // TRIE_H
-
 /**
  * @}
  */
+
+#endif // TRIE_H
+

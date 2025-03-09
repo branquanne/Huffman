@@ -33,8 +33,9 @@
  */
 void generate_huffman_codes(Node *root, char *code, int top, char *codes[]);
 
-#endif // HUFFMAN_TABLE_H
-
 /** 
  * @} 
  */
+
+#endif // HUFFMAN_TABLE_H
+

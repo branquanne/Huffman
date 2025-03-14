@@ -8,11 +8,10 @@
  *              Huffman coding algorithm.
  *
  * Author: Henrik Röjvall & Bran Quanne
- * 
+ *
  * Date: 2025-03-08
- * 
+ *
  */
-
 
 // Main function
 int main(int argc, char **argv) {
@@ -30,6 +29,7 @@ int main(int argc, char **argv) {
   if (strcmp(argv[1], "-encode") == 0) {
     long input_size = 0;
     long output_size = 0;
+
     encode_file(argv[3], argv[4], codes, &input_size, &output_size);
     printf("%ld bytes read from %s.\n", input_size, argv[3]);
     printf("%ld bytes used in encoded form.\n", output_size);

@@ -10,6 +10,7 @@ build/
 .vscode/
 *
 
+!README.md
 !*.c
 !*.h
 !*.gitignore
